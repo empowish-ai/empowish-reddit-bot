@@ -1,0 +1,15 @@
+name = "empowish-post-creator"
+main = "workers/post-creator.js"
+compatibility_date = "2023-10-30"
+
+# Variables de entorno que no son secretas.
+# El User-Agent es requerido por la API de Reddit.
+[vars]
+REDDIT_USER_AGENT = "script:empowish-bot:v1.0.0 (by u/solopassions)"
+REDDIT_SUBREDDIT = "Empowish"
+
+# Vinculación a nuestra base de datos KV (la crearemos más adelante)
+[[kv_namespaces]]
+binding = "EMPOWISH_KV"
+id = "83f53415fcd34c39a08fa19de5345f55" # ¡Importante! Este valor lo obtendrás de Cloudflare
+preview_id = "83f53415fcd34c39a08fa19de5345f55" # Este también

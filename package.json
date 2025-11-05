@@ -1,0 +1,13 @@
+{
+  "name": "empowish-reddit-bot",
+  "version": "1.0.0",
+  "description": "Bot automatizado para crear contenido en r/Empowish",
+  "main": "workers/post-creator.js",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.45.4"
+  }
+}
