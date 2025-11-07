@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Empowish Bot</title>
+    <title>Empowish Bot Dashboard</title>
     <style>
-        /* Estilos básicos para una apariencia limpia y moderna */
+        /* Basic styles for a clean and modern look */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             max-width: 700px;
@@ -22,7 +21,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #007bff; /* Un color que inspire confianza y tecnología */
+            color: #007bff; /* A color that inspires trust and technology */
             text-align: center;
         }
         label {
@@ -37,7 +36,7 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 16px;
-            box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+            box-sizing: border-box; /* Ensures padding does not affect total width */
         }
         button {
             background-color: #007bff;
@@ -53,12 +52,12 @@
         }
         #result {
             margin-top: 20px;
-            white-space: pre-wrap; /* Mantiene los saltos de línea y el espaciado del JSON */
+            white-space: pre-wrap; /* Maintains line breaks and spacing of the JSON */
             background-color: #eef;
             padding: 15px;
             border-radius: 5px;
             border-left: 5px solid #007bff;
-            display: none; /* Se mostrará con JavaScript */
+            display: none; /* Will be shown with JavaScript */
             font-family: monospace;
             font-size: 14px;
         }
@@ -75,84 +74,84 @@
 <body>
 
     <div class="container">
-        <h1>Dashboard para r/Empowish</h1>
-        <p>Usa este panel para generar y publicar contenido de forma manual en tu comunidad.</p>
+        <h1>Dashboard for r/Empowish</h1>
+        <p>Use this panel to manually generate and publish content to your community.</p>
         
         <div class="warning">
-            <strong>Importante:</strong> Asegúrate de que la URL del Worker en el código JavaScript esté actualizada después del despliegue.
+            <strong>Important:</strong> Make sure the Worker URL in the JavaScript code is updated after deployment.
         </div>
         
-        <label for="pillar">Pilar:</label>
+        <label for="pillar">Pillar:</label>
         <select id="pillar">
-            <!-- ¡IMPORTANTE! Actualiza esta lista con tus pilares reales -->
-            <option value="Autoconocimiento y Mindfulness">Autoconocimiento y Mindfulness</option>
-            <option value="Resiliencia Emocional">Resiliencia Emocional</option>
-            <option value="Hábitos y Disciplina Positiva">Hábitos y Disciplina Positiva</option>
-            <option value="Sanación de Relaciones">Sanación de Relaciones</option>
-            <option value="Propósito y Vida Significativa">Propósito y Vida Significativa</option>
+            <!-- IMPORTANT! Update this list with your actual pillars -->
+            <option value="Self-Knowledge and Mindfulness">Self-Knowledge and Mindfulness</option>
+            <option value="Emotional Resilience">Emotional Resilience</option>
+            <option value="Positive Habits and Discipline">Positive Habits and Discipline</option>
+            <option value="Healing Relationships">Healing Relationships</option>
+            <option value="Purpose and Meaningful Life">Purpose and Meaningful Life</option>
         </select>
 
-        <label for="postType">Tipo de Post:</label>
+        <label for="postType">Post Type:</label>
         <select id="postType">
-            <option value="una reflexión profunda">Reflexión Profunda</option>
-            <option value="un consejo práctico">Consejo Práctico</option>
-            <option value="una pregunta para la comunidad">Pregunta para la Comunidad</option>
+            <option value="a deep reflection">Deep Reflection</option>
+            <option value="a practical tip">Practical Tip</option>
+            <option value="a question for the community">Question for the Community</option>
         </select>
 
-        <button id="generateAndPost">Generar y Publicar en Reddit</button>
+        <button id="generateAndPost">Generate and Post to Reddit</button>
         
-        <!-- Aquí se mostrará la respuesta del bot -->
+        <!-- The bot's response will be displayed here -->
         <div id="result"></div>
     </div>
 
     <script>
-        // Obtenemos referencias a los elementos del DOM
+        // Get references to DOM elements
         const generateButton = document.getElementById('generateAndPost');
         const pillarSelect = document.getElementById('pillar');
         const postTypeSelect = document.getElementById('postType');
         const resultDiv = document.getElementById('result');
 
-        // Añadimos un evento 'click' al botón
+        // Add a 'click' event to the button
         generateButton.addEventListener('click', async () => {
-            // Obtenemos los valores seleccionados
+            // Get the selected values
             const pillar = pillarSelect.value;
             const postType = postTypeSelect.value;
 
-            // Mostramos un mensaje de carga
+            // Show a loading message
             resultDiv.style.display = 'block';
-            resultDiv.textContent = 'Generando y publicando... por favor, espera. Esto puede tardar un minuto.';
-            generateButton.disabled = true; // Deshabilitamos el botón para evitar múltiples clicks
+            resultDiv.textContent = 'Generating and posting... please wait. This may take a minute.';
+            generateButton.disabled = true; // Disable the button to prevent multiple clicks
 
-            // !!! AVISO IMPORTANTE !!!
-            // Debes cambiar esta URL por la real de tu Worker después de desplegarlo en Cloudflare.
-            // Se verá algo como: https://empowish-post-creator.tu-subdominio.workers.dev
+            // !!! IMPORTANT NOTICE !!!
+            // You must change this URL to your actual Worker URL after deploying it on Cloudflare.
+            // It will look something like: https://empowish-post-creator.your-subdomain.workers.dev
             const workerUrl = 'https://empowish-post-creator.TU_SUBDOMINIO.workers.dev';
             
             try {
-                // Hacemos la petición POST a nuestro Worker
+                // Make the POST request to our Worker
                 const response = await fetch(workerUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ pillar, postType })
                 });
 
-                // Parseamos la respuesta JSON
+                // Parse the JSON response
                 const result = await response.json();
 
-                // Mostramos el resultado en el div, formateado para mejor legibilidad
+                // Display the result in the div, formatted for better readability
                 resultDiv.textContent = JSON.stringify(result, null, 2);
 
-                // Si la publicación fue exitosa, podemos mostrar un mensaje más amigable
+                // If the post was successful, we can show a more user-friendly message
                 if (result.success && result.redditResult && result.redditResult.json && result.redditResult.json.data) {
                     const postUrl = result.redditResult.json.data.url;
-                    resultDiv.innerHTML = `<strong>¡Publicado con éxito!</strong><br>Puedes verlo aquí: <a href="${postUrl}" target="_blank">${postUrl}</a><br><br><strong>Respuesta completa:</strong><br><pre>${JSON.stringify(result, null, 2)}</pre>`;
+                    resultDiv.innerHTML = `<strong>Successfully posted!</strong><br>You can see it here: <a href="${postUrl}" target="_blank">${postUrl}</a><br><br><strong>Full response:</strong><br><pre>${JSON.stringify(result, null, 2)}</pre>`;
                 }
 
             } catch (error) {
-                // Si hay un error de red (ej: URL incorrecta), lo mostramos
-                resultDiv.textContent = 'Error al conectar con el Worker. Asegúrate de que la URL en el script es correcta y que el Worker está desplegado.\n\nError: ' + error.message;
+                // If there is a network error (e.g., incorrect URL), we show it
+                resultDiv.textContent = 'Error connecting to the Worker. Make sure the URL in the script is correct and the Worker is deployed.\n\nError: ' + error.message;
             } finally {
-                // Rehabilitamos el botón
+                // Re-enable the button
                 generateButton.disabled = false;
             }
         });

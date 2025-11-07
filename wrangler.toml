@@ -13,3 +13,6 @@ REDDIT_SUBREDDIT = "Empowish"
 binding = "EMPOWISH_KV"
 id = "83f53415fcd34c39a08fa19de5345f55" # ¡Importante! Este valor lo obtendrás de Cloudflare
 preview_id = "83f53415fcd34c39a08fa19de5345f55" # Este también
+
+[triggers]
+crons = ["0 */8 * * *"]
